@@ -12,7 +12,7 @@
 <body>
 <header class="top"><div class="wrap">
   <a class="mark" href="./">Kodvar<span>.</span></a>
-  <nav class="links"><a href="#uslugi">Услуги</a><a href="#tarify">Тарифы</a><a href="#kak">Как подключиться</a><a href="#kontakty">Контакты</a><a href="oferta.html">Оферта</a></nav>
+  <nav class="links"><a href="#uslugi">Услуги</a><a href="#tarify">Тариф и оплата</a><a href="#kak">Как подключиться</a><a href="#kontakty">Контакты</a><a href="oferta.html">Оферта</a></nav>
 </div></header>
 
 <main>
@@ -33,31 +33,51 @@
 </div></section>
 
 <section id="tarify"><div class="wrap">
-  <h2>Тарифы</h2>
+  <h2>Тариф и оплата</h2>
   <div class="plans">
-    <div class="plan">
-      <h3>Базовый</h3>
-      <div class="price">990 ₽ <small>/ месяц</small></div>
-      <div class="note" style="margin-top:0">или 9 900 ₽ за год — два месяца в подарок</div>
-      <ul><li>Доступ к приложению для заведения и его гостей</li><li>Хранение данных и ежедневные резервные копии</li><li>Исправление ошибок и обновления</li></ul>
-    </div>
     <div class="plan main">
-      <h3>С поддержкой</h3>
+      <h3>Всё включено</h3>
       <div class="price">1 990 ₽ <small>/ месяц</small></div>
       <div class="note" style="margin-top:0">или 19 900 ₽ за год — два месяца в подарок</div>
-      <ul><li>Всё, что в «Базовом»</li><li>Помощь разработчика: ответ в течение рабочего дня</li><li>Настройка залов, меню и небольшие доработки по просьбе</li></ul>
+      <ul><li>Приложение для заведения и его гостей</li><li>Хранение данных и резервные копии</li><li>Исправление ошибок и обновления</li><li>Помощь разработчика: ответ в течение рабочего дня</li><li>Настройка залов, меню и небольшие доработки по просьбе</li></ul>
     </div>
+    <form class="plan pay" id="payform" novalidate>
+      <h3>Оплатить подписку</h3>
+      <label for="pcode">Код приложения</label>
+      <input id="pcode" name="code" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="например, mokko" required>
+      <span class="hint">Код выдаёт Kodvar при подключении. Оплатить можно и в самом приложении, в разделе «Подписка».</span>
+      <fieldset><legend>Срок</legend>
+        <label class="opt"><input type="radio" name="period" value="month" checked> Месяц — 1 990 ₽</label>
+        <label class="opt"><input type="radio" name="period" value="year"> Год — 19 900 ₽</label>
+      </fieldset>
+      <label class="opt agree"><input type="checkbox" id="pagree" required><span>Принимаю <a href="oferta.html">оферту</a> и согласен на автопродление: следующий период оплатится с сохранённой карты. Отключить автопродление или отвязать карту можно в приложении, раздел «Подписка».</span></label>
+      <div class="err" id="perr" hidden></div>
+      <button type="submit" class="btn">Перейти к оплате</button>
+      <span class="hint">Оплата на защищённой странице ЮKassa: карта, СБП, SberPay, T-Pay, ЮMoney. Платит физическое лицо со своей карты.</span>
+    </form>
   </div>
   <p class="note">Цены указаны в рублях. Исполнитель применяет налог на профессиональный доход и не является плательщиком НДС. Подробные условия — в <a href="oferta.html">договоре-оферте</a>.</p>
 </div></section>
+<script>
+document.getElementById('payform').addEventListener('submit', e => {
+  e.preventDefault();
+  const code = document.getElementById('pcode').value.trim().toLowerCase();
+  const err = document.getElementById('perr');
+  const show = t => { err.textContent = t; err.hidden = false; };
+  if (!/^[a-z0-9-]{2,32}$/.test(code)) return show('Введите код приложения латиницей, например mokko.');
+  if (!document.getElementById('pagree').checked) return show('Отметьте согласие с офертой и автопродлением.');
+  const period = new FormData(e.target).get('period') === 'year' ? 'year' : 'month';
+  location.href = 'https://pay.kodvar.ru/pay/' + encodeURIComponent(code) + '?plan=basic&period=' + period;
+});
+</script>
 
 <section id="kak"><div class="wrap">
   <h2>Как подключиться и как оказывается услуга</h2>
   <div class="grid">
     <div class="item"><span class="num">1</span><p>Пишете на почту или звоните — обсуждаем, что нужно заведению. Делаю и настраиваю приложение под вас.</p></div>
-    <div class="item"><span class="num">2</span><p>Владелец заведения оплачивает подписку прямо в приложении (раздел «Подписка») картой, через СБП или SberPay.</p></div>
+    <div class="item"><span class="num">2</span><p>Владелец или управляющий заведения как физическое лицо оплачивает подписку своей картой — в приложении (раздел «Подписка») или здесь, в форме «Оплатить подписку».</p></div>
     <div class="item"><span class="num">3</span><p>Доступ открывается автоматически сразу после оплаты. Ничего не доставляется физически — услуга оказывается онлайн.</p></div>
-    <div class="item"><span class="num">4</span><p>Подписка продлевается автоматически с сохранённой карты; отключить автопродление можно в любой момент в том же разделе.</p></div>
+    <div class="item"><span class="num">4</span><p>Подписка продлевается автоматически с сохранённой карты; отключить автопродление или отвязать карту можно в любой момент в разделе «Подписка» приложения.</p></div>
   </div>
 </div></section>
 
