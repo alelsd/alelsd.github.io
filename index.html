@@ -37,9 +37,13 @@
   <div class="plans">
     <div class="plan main">
       <h3>Всё включено</h3>
-      <div class="price">1 990 ₽ <small>/ месяц</small></div>
-      <div class="note" style="margin-top:0">или 19 900 ₽ за год — два месяца в подарок</div>
-      <ul><li>Приложение для заведения и его гостей</li><li>Хранение данных и резервные копии</li><li>Исправление ошибок и обновления</li><li>Помощь разработчика: ответ в течение рабочего дня</li><li>Настройка залов, меню и небольшие доработки по просьбе</li></ul>
+      <div class="price">от 1 990 ₽ <small>/ месяц</small></div>
+      <div class="note" style="margin-top:0">за год — 10 месяцев, два в подарок</div>
+      <dl class="levels">
+        <div><dt>Запись и гости</dt><dd><b>1 990 ₽</b> / мес · 19 900 ₽ / год</dd><dd class="what">Онлайн-запись или бронь, карта гостя, база клиентов, чат персонала — для кафе, баров, клубов</dd></div>
+        <div><dt>Запись, бот и аналитика</dt><dd><b>2 990 ₽</b> / мес · 29 900 ₽ / год</dd><dd class="what">Всё из первого + Telegram-бот с уведомлениями, живой статус обслуживания, табло, аналитика и расчёт оплаты персонала — например, для автомойки</dd></div>
+      </dl>
+      <ul><li>Приложение в стиле вашего заведения</li><li>Хранение данных и резервные копии</li><li>Исправление ошибок и обновления</li><li>Помощь разработчика: ответ в течение рабочего дня</li><li>Небольшие доработки и настройка по просьбе</li></ul>
     </div>
     <form class="plan pay" id="payform" novalidate>
       <h3>Оплатить подписку</h3>
@@ -47,9 +51,10 @@
       <input id="pcode" name="code" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="например, mokko" required>
       <span class="hint">Код выдаёт Kodvar при подключении. Оплатить можно и в самом приложении, в разделе «Подписка».</span>
       <fieldset><legend>Срок</legend>
-        <label class="opt"><input type="radio" name="period" value="month" checked> Месяц — 1 990 ₽</label>
-        <label class="opt"><input type="radio" name="period" value="year"> Год — 19 900 ₽</label>
+        <label class="opt"><input type="radio" name="period" value="month" checked><span>Месяц</span></label>
+        <label class="opt"><input type="radio" name="period" value="year"><span>Год — два месяца в подарок</span></label>
       </fieldset>
+      <span class="hint">Сумма — по тарифу вашего приложения, она будет на странице оплаты до того, как вы введёте карту.</span>
       <label class="opt agree"><input type="checkbox" id="pagree" required><span>Принимаю <a href="oferta.html">оферту</a> и согласен на автопродление: следующий период оплатится с сохранённой карты. Отключить автопродление или отвязать карту можно в приложении, раздел «Подписка».</span></label>
       <div class="err" id="perr" hidden></div>
       <button type="submit" class="btn">Перейти к оплате</button>
